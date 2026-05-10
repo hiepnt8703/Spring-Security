@@ -13,18 +13,31 @@ import java.time.LocalDateTime;
 @Getter
 @Setter
 public abstract class BaseEntity {
-    @Column(name = "created_at")
+    @Column(name = "created_at", updatable = false)
     private LocalDateTime createdAt;
 
     @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "is_deleted")
-    private Boolean isDeleted = false;
+    @Column(name = "created_by", length = 64, updatable = false)
+    private String createdBy;
+
+    @Column(name = "updated_by", length = 64)
+    private String updatedBy;
+
+    @Column(name = "deleted", nullable = false)
+    private Boolean deleted = false;
 
     @PrePersist
     public void prePersist() {
-        this.createdAt = LocalDateTime.now();
+        LocalDateTime now = LocalDateTime.now();
+
+        this.createdAt = now;
+        this.updatedAt = now;
+
+        if (this.deleted == null) {
+            this.deleted = false;
+        }
     }
 
     @PreUpdate

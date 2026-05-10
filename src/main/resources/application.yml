@@ -6,7 +6,7 @@ spring:
     name: shop-app
 
   datasource:
-    url: jdbc:mysql://localhost:3306/shop-app?createDatabaseIfNotExist=true
+    url: jdbc:mysql://localhost:3306/intern-rbac?createDatabaseIfNotExist=true
     username: root
     password: 123456
     driver-class-name: com.mysql.cj.jdbc.Driver
