@@ -1,4 +1,4 @@
-package common;
+package com.jmaster.shop_app.common;
 
 import lombok.*;
 
@@ -6,12 +6,16 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class BaseResponse<T> {
-    private int status;
+@Builder
+public class ErrorResponse {
+
+    private Integer code;
+
     private String message;
-    private T data;
+
+    private String error;
+
     private LocalDateTime timestamp;
 }

@@ -11,21 +11,31 @@ import lombok.Setter;
 @Setter
 public class UserRequest {
     @NotBlank(message = "Username không được để trống")
-    @Size(min = 3, max = 50, message = "Username phải từ 3-50 ký tự")
+    @Size(min = 3, max = 32, message = "Username phải từ 3 đến 32 ký tự")
+    @Pattern(
+            regexp = "^[a-z0-9._-]+$",
+            message = "Username chỉ được chứa chữ thường, số, dấu chấm, gạch dưới hoặc gạch ngang"
+    )
     private String username;
 
-    @Size(min = 6, message = "Password phải có ít nhất 6 ký tự")
+    @NotBlank(message = "Password không được để trống")
+    @Size(min = 8, message = "Password phải có tối thiểu 8 ký tự")
+    @Pattern(
+            regexp = "^(?=.*[A-Za-z])(?=.*\\d).+$",
+            message = "Password phải có ít nhất 1 chữ cái và 1 chữ số"
+    )
     private String password;
 
-    @NotBlank(message = "Họ tên không được để trống")
+    @Size(max = 128, message = "Họ tên không được vượt quá 128 ký tự")
     private String fullName;
 
-    @NotBlank(message = "Email không được để trống")
-    @Email(message = "Email không hợp lệ")
+    @Email(message = "Email không đúng định dạng")
+    @Size(max = 128, message = "Email không được vượt quá 128 ký tự")
     private String email;
 
-    @Pattern(regexp = "^(0|\\+84)[0-9]{9,10}$", message = "Số điện thoại không hợp lệ")
-    private String phone;
-
-    private String address;
+    /**
+     * 1: ACTIVE
+     * 0: LOCKED
+     */
+    private String status;
 }
